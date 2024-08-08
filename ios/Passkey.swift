@@ -89,10 +89,15 @@ class Passkey: NSObject {
         let authRequest = securityKeyProvider.createCredentialAssertionRequest(challenge: challengeData);
         authController = ASAuthorizationController(authorizationRequests: [authRequest]);
       } else {
-        // Create a new assertion request without security key
-        let platformProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: identifier);
-        let authRequest = platformProvider.createCredentialAssertionRequest(challenge: challengeData);
-        authController = ASAuthorizationController(authorizationRequests: [authRequest]);
+          // Create a new assertion request without security key
+          let platformProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: identifier);
+          let authRequest = platformProvider.createCredentialAssertionRequest(challenge: challengeData);
+          
+          if let credentialId = credentialId {
+            authRequest.allowedCredentials = [ASAuthorizationPlatformPublicKeyCredentialDescriptor(credentialID: Data.fromBase64Url(credentialId)!)]
+          }
+          
+          authController = ASAuthorizationController(authorizationRequests: [authRequest]);
       }
 
       // Set up a PasskeyDelegate instance with a callback function

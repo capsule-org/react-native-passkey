@@ -68,9 +68,9 @@ class Passkey: NSObject {
       reject(PassKeyError.notSupported.rawValue, PassKeyError.notSupported.rawValue, nil);
     }
   }
-
-  @objc(authenticate:withChallenge:withSecurityKey:withResolver:withRejecter:)
-  func authenticate(_ identifier: String, challenge: String, securityKey: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+  
+  @objc(authenticate:withChallenge:withSecurityKey:withCredentialId:withResolver:withRejecter:)
+  func authenticate(_ identifier: String, challenge: String, securityKey: Bool, credentialId: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 
     // Convert challenge to correct type
     guard let challengeData: Data = Data(base64Encoded: challenge) else {
@@ -94,7 +94,7 @@ class Passkey: NSObject {
           let authRequest = platformProvider.createCredentialAssertionRequest(challenge: challengeData);
           
           if let credentialId = credentialId {
-            authRequest.allowedCredentials = [ASAuthorizationPlatformPublicKeyCredentialDescriptor(credentialID: Data.fromBase64Url(credentialId)!)]
+            authRequest.allowedCredentials = [ASAuthorizationPlatformPublicKeyCredentialDescriptor(credentialID: Data(base64Encoded: credentialId)!)];
           }
           
           authController = ASAuthorizationController(authorizationRequests: [authRequest]);

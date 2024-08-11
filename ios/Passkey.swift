@@ -7,12 +7,12 @@ class Passkey: NSObject {
 
   @objc(register:withChallenge:withDisplayName:withUserId:withSecurityKey:withResolver:withRejecter:)
   func register(_ identifier: String, challenge: String, displayName: String, userId: String, securityKey: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
-    guard let challengeData = Data.fromBase64Url(challenge) else {
+    guard let challengeData: Data = Data.fromBase64URL(challenge) else {
         reject(PassKeyError.invalidChallenge.rawValue, PassKeyError.invalidChallenge.rawValue, nil);
         return
     }
 
-    guard let userIdData = Data.fromBase64Url(userId) else {
+    guard let userIdData: Data = Data.fromBase64URL(userId) else {
         reject(PassKeyError.invalidUserId.rawValue, PassKeyError.invalidUserId.rawValue, nil);
         return
     }

@@ -42,7 +42,7 @@
     "authentication",
     "auth"
   ],
-  "repository": "https://github.com/f-23/react-native-passkey",
+  "repository": "https://github.com/capsule-org/react-native-passkey",
   "author": "f-23 <fabian@kuentzler.at> (https://github.com/f-23)",
   "license": "MIT",
   "bugs": {
@@ -155,5 +155,6 @@
         }
       ]
     ]
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }

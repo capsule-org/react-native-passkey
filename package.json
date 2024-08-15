@@ -1,6 +1,6 @@
 {
   "name": "@usecapsule/react-native-passkey",
-  "version": "2.2.0-dev.4",
+  "version": "2.2.0",
   "description": "Passkey implementation for React Native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
